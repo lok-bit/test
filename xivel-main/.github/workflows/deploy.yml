@@ -1,0 +1,49 @@
+name: Deploy Godot Web to itch.io
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Godot environment and export
+      id: export
+      uses: firebelley/godot-export@v5.2.1
+      with:
+        godot_executable_download_url: https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_linux.x86_64.zip
+        godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_export_templates.tpz
+        relative_project_path: ./
+        relative_export_path: ./builds/Web
+
+    - name: Save Artifacts for Next Job
+      uses: actions/upload-artifact@v4
+      with:
+        name: artifacts
+        path: builds/Web
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Get Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: artifacts
+        path: builds/Web
+
+    - name: Deploy to itch.io
+      uses: manleydev/butler-publish-itchio-action@master
+      env:
+        BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+        CHANNEL: html5
+        ITCH_GAME: xivel
+        ITCH_USER: awesomejerry
+        PACKAGE: ./builds/Web

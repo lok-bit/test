@@ -1,0 +1,77 @@
+[gd_scene load_steps=10 format=3 uid="uid://edmi5jtva5y2"]
+
+[ext_resource type="Script" path="res://Scenes/turrets/projectileTurret/projectileTurret.gd" id="1_7ca8v"]
+[ext_resource type="Texture2D" uid="uid://83kim8fm0f2s" path="res://Assets/turrets/technoturret.png" id="2_2x7ix"]
+[ext_resource type="Texture2D" uid="uid://bf22ax8bqdfwk" path="res://Assets/turrets/hawkeye/turret-hawkeye-attack1.png" id="3_ute6r"]
+[ext_resource type="Texture2D" uid="uid://c2nmwaosmn5fd" path="res://Assets/turrets/hawkeye/turret-hawkeye-attack2.png" id="4_w22de"]
+[ext_resource type="Texture2D" uid="uid://duahbyv2xv3r6" path="res://Assets/turrets/hawkeye/turret-hawkeye1.png" id="6_llo6u"]
+[ext_resource type="Texture2D" uid="uid://d4bb2olt51fd6" path="res://Assets/turrets/hawkeye/turret-hawkeye2.png" id="7_t56uh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aicnu"]
+radius = 22.8
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kae7m"]
+radius = 230.11
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yje0e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ute6r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_w22de")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_llo6u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_t56uh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[node name="Turret" type="Node2D"]
+script = ExtResource("1_7ca8v")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+z_index = 2
+texture_filter = 1
+texture = ExtResource("2_2x7ix")
+
+[node name="CollisionArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionArea"]
+shape = SubResource("CircleShape2D_aicnu")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_kae7m")
+
+[node name="AttackCooldown" type="Timer" parent="."]
+autostart = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_yje0e")
+animation = &"attack"
+autoplay = "default"
+frame_progress = 0.74764
+
+[connection signal="input_event" from="CollisionArea" to="." method="_on_collision_area_input_event"]
+[connection signal="area_entered" from="DetectionArea" to="." method="_on_detection_area_area_entered"]
+[connection signal="area_exited" from="DetectionArea" to="." method="_on_detection_area_area_exited"]
+[connection signal="timeout" from="AttackCooldown" to="." method="attack"]

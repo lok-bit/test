@@ -1,0 +1,14 @@
+[gd_resource type="SpriteFrames" load_steps=2 format=3 uid="uid://djv5uvpfktdlq"]
+
+[ext_resource type="Texture2D" uid="uid://ccr6kplvukxdy" path="res://Assets/bullets/arrow.png" id="1_ybnd5"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ybnd5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]

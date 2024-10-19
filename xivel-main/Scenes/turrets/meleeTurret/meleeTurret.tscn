@@ -1,0 +1,148 @@
+[gd_scene load_steps=24 format=3 uid="uid://dbktwv0atytem"]
+
+[ext_resource type="Script" path="res://Scenes/turrets/meleeTurret/melee_turret.gd" id="1_65sy1"]
+[ext_resource type="Texture2D" uid="uid://83kim8fm0f2s" path="res://Assets/turrets/technoturret.png" id="2_co0py"]
+[ext_resource type="Texture2D" uid="uid://m65sevenkjoq" path="res://Assets/turrets/hulk/turret-hulk1.png" id="3_rxas5"]
+[ext_resource type="Texture2D" uid="uid://b0uc1bdy3pco8" path="res://Assets/turrets/hulk/turret-hulk-attack1.png" id="3_tbieu"]
+[ext_resource type="Texture2D" uid="uid://qjv0swfemoau" path="res://Assets/turrets/hulk/turret-hulk-attack2.png" id="4_4p2ad"]
+[ext_resource type="Texture2D" uid="uid://bcaou61q2bt2i" path="res://Assets/turrets/hulk/turret-hulk2.png" id="4_6ukwg"]
+[ext_resource type="Texture2D" uid="uid://bb38dd6d11dn4" path="res://Assets/turrets/hulk/turret-hulk-attack3.png" id="5_gl4p3"]
+[ext_resource type="Texture2D" uid="uid://ctofh8h4h5126" path="res://Assets/turrets/hulk/turret-hulk3.png" id="5_ovlxq"]
+[ext_resource type="Texture2D" uid="uid://d2lqbbv0qbq1d" path="res://Assets/turrets/hulk/hulk-attack1.png" id="9_ibc6b"]
+[ext_resource type="Texture2D" uid="uid://bvjiqpm2smr53" path="res://Assets/turrets/hulk/hulk-attack2.png" id="10_tlq2x"]
+[ext_resource type="Texture2D" uid="uid://mfcuwvf6spuo" path="res://Assets/turrets/hulk/hulk-attack3.png" id="11_kvjco"]
+[ext_resource type="Texture2D" uid="uid://32pknr4rjtvd" path="res://Assets/turrets/hulk/hulk-attack4.png" id="12_ddgsl"]
+[ext_resource type="Texture2D" uid="uid://b2hiwgq3nwwyg" path="res://Assets/turrets/hulk/hulk-attack5.png" id="13_bq5wf"]
+[ext_resource type="Texture2D" uid="uid://ctifad58c4byu" path="res://Assets/turrets/hulk/hulk-attack6.png" id="14_n8wnt"]
+[ext_resource type="Texture2D" uid="uid://b1irx5mg1t2p0" path="res://Assets/turrets/hulk/hulk-attack7.png" id="15_n02j0"]
+[ext_resource type="Texture2D" uid="uid://xftne1x743ni" path="res://Assets/turrets/hulk/hulk-attack8.png" id="16_nfpa3"]
+[ext_resource type="Texture2D" uid="uid://d1d3g4ce8ofxd" path="res://Assets/turrets/hulk/hulk-attack9.png" id="17_l3nyo"]
+[ext_resource type="Texture2D" uid="uid://blpcepg2tty0i" path="res://Assets/turrets/hulk/hulk-attack10.png" id="18_ox1sb"]
+[ext_resource type="Texture2D" uid="uid://brtfh4v6vjnk7" path="res://Assets/turrets/hulk/hulk-attack11.png" id="19_3h01v"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ds6ah"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_tbieu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_4p2ad")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_gl4p3")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_rxas5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_6ukwg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ovlxq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aicnu"]
+radius = 22.8
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kae7m"]
+radius = 230.11
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hbwss"]
+animations = [{
+"frames": [{
+"duration": 2.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ibc6b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_tlq2x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_kvjco")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ddgsl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_bq5wf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_n8wnt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_n02j0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_nfpa3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_l3nyo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_ox1sb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_3h01v")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Turret" type="Node2D"]
+script = ExtResource("1_65sy1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+z_index = 2
+texture_filter = 1
+texture = ExtResource("2_co0py")
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_ds6ah")
+autoplay = "default"
+
+[node name="CollisionArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionArea"]
+shape = SubResource("CircleShape2D_aicnu")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_kae7m")
+
+[node name="AttackCooldown" type="Timer" parent="."]
+autostart = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 2
+position = Vector2(7.62939e-06, -19)
+scale = Vector2(6.09375, 6.09375)
+sprite_frames = SubResource("SpriteFrames_hbwss")
+frame_progress = 1.0
+
+[connection signal="input_event" from="CollisionArea" to="." method="_on_collision_area_input_event"]
+[connection signal="area_entered" from="DetectionArea" to="." method="_on_detection_area_area_entered"]
+[connection signal="area_exited" from="DetectionArea" to="." method="_on_detection_area_area_exited"]
+[connection signal="timeout" from="AttackCooldown" to="." method="attack"]
